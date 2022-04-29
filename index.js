@@ -38,8 +38,9 @@ const getRandomProject = (projectSize) => {
 }
 
 const generateCategories = async () => {
-    // const categories = await getRandomProject()
-    //     .then(response => response.json());
+    const projectSize = document.getElementById('project-size').value;
+    const categories = await getRandomProject(projectSize)
+        .then(response => response.json());
     // document.getElementById('result').textContent = JSON.stringify(categories);
     // return Promise((resolve, reject) => {
         // setTimeout(()=> {

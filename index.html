@@ -12,6 +12,14 @@
 <body>
     <div class="header"> Welcome to TinyHack</div>
     <div class="main-content">
+        <div class="project-size-container">
+            <label for="project-size">Project Size: </label>
+            <select name="project-size" id="project-size">
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+            </select>
+        </div>
         <div class="slot-machine">
             <div class="spinners">
                 <div class="spinner" id="ui-category">
@@ -29,7 +37,6 @@
             </div>
             <button onclick="generateCategories()" class="spin-button">SPIN</button>
         </div>
-        <!-- <div id="result">Nothing</div> -->
     </div>
     </div>
     <div class="footer">

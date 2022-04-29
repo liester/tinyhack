@@ -84,3 +84,25 @@ body {
 #result {
     width: 600px;
 }
+
+select {
+    width: 150px;
+    font-size: 16px;
+    border: 3px solid var(--secondary);
+    height: 34px;
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
+    /* appearance: none;
+    background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat #EEE; */
+}
+
+.project-size-container {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.project-size-container label {
+    padding-right: 10px;
+    font-size: 20px;
+}
