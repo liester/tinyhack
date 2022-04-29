@@ -2,7 +2,7 @@
 
 <head>
     <link href="index.css" rel="stylesheet">
-    <link href="index.js" rel="stylesheet">
+    <script src="index.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&family=Orelega+One&display=swap"
@@ -14,13 +14,22 @@
     <div class="main-content">
         <div class="slot-machine">
             <div class="spinners">
-                <div class="spinner">UI</div>
-                <div class="spinner">API</div>
-                <div class="spinner">Persistence</div>
-                <div class="spinner"></div>Goal
+                <div class="spinner" id="ui-category">
+                    <div class="spinner-title">UI</div>
+                    <div class="spinner-value">?</div>
+                </div>
+                <div class="spinner" id="api-category">
+                    <div class="spinner-title">API</div>
+                    <div class="spinner-value">?</div>
+                </div>
+                <div class="spinner" id="persistence-category">
+                    <div class="spinner-title">Persistence</div>
+                    <div class="spinner-value">?</div>
+                </div>
             </div>
-            <button class="spin-button">SPIN</button>
+            <button onclick="generateCategories()" class="spin-button">SPIN</button>
         </div>
+        <!-- <div id="result">Nothing</div> -->
     </div>
     </div>
     <div class="footer">
