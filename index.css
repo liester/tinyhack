@@ -44,3 +44,32 @@ body {
     color: white;
     align-items: center;
 }
+
+.slot-machine {
+    display: flex;
+}
+
+.spinner + .spinner {
+    padding-left: 5px;
+}
+
+.spinners {
+    display: flex;
+    padding: 10px;
+    border: solid var(--secondary) 5px;
+    border-radius: 5px;
+}
+
+.spin-button {
+    margin-left: 10px;
+    font-size: 40px;
+    border: solid var(--secondary) 5px;
+    font-family: 'Orelega One', cursive;
+    color: var(--tertiary);
+    border-radius: 5px;
+    box-shadow: 2px 2px 0 0;
+}
+
+.spin-button:active {
+    box-shadow: 0 0 0 0;
+}
