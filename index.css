@@ -1,0 +1,46 @@
+:root {
+    --primary: rgb(87, 20, 100);
+    --secondary: rgb(255, 111, 181);
+    --tertiary: rgb(85, 216, 193);
+}
+
+html {
+    font-family: 'Nunito', sans-serif;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.header {
+    display: flex;
+    background-color: var(--primary);
+    height: 50px;
+    color: white;
+    font-size: 35px;
+    justify-content: center;
+}
+
+.main-content {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    padding: 0 10 0 10;
+    height: 30px;
+    display: flex;
+    background-color: var(--primary);
+    color: white;
+    align-items: center;
+}
