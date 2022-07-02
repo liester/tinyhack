@@ -65,13 +65,16 @@
 
         .spinner {
             text-align: center;
-            width: 120px;
+            width: 150px;
+            font-family: 'Orelega One', cursive;
+            color: var(--tertiary);
         }
 
         .spinner-value {
-            font-size: 20px;
-            background-color: var(--secondary);
+            font-size: 30px;
+            background-color: white;
             border-radius: 8px;
+            border: 4px solid var(--secondary)
         }
 
         .spinners {
@@ -168,41 +171,6 @@
         });
     }
 
-    const generateCategories = async () => {
-        const projectSize = document.getElementById('project-size').value;
-        const categories = await getRandomProject(projectSize)
-            .then(response => response.json());
-        // document.getElementById('result').textContent = JSON.stringify(categories);
-        // return Promise((resolve, reject) => {
-        // setTimeout(()=> {
-        // }, 3000)
-        // })
-        const persistence = getRandomInt(persistenceOptions.length)
-        const api = getRandomInt(apiOptions.length)
-        const ui = getRandomInt(uiOptions.length)
-
-        document.querySelector('#ui-category .spinner-value').textContent = uiOptions[ui];
-        document.querySelector('#api-category .spinner-value').textContent = apiOptions[api];
-        document.querySelector('#persistence-category .spinner-value').textContent = persistenceOptions[persistence];
-    }
-
-    const spinit = async () => {
-        const spinTimes = 5;
-        const spinPromise = () => new Promise((resolve, reject) => {
-            console.log('running spin promise')
-            document.querySelector('#ui-category .spinner-value').classList.add('spin')
-            setTimeout(() => {
-                document.querySelector('#ui-category .spinner-value').classList.remove('spin')
-                setTimeout(() => {
-                    resolve()
-                }, 40)
-            }, 200)
-        })
-        for (let i = 0; i < spinTimes; i++) {
-            console.log('running promise')
-            await spinPromise()
-        }
-    }
 </script>
 
 <body>
@@ -220,20 +188,16 @@
         <div class="slot-machine">
             <div class="spinners">
                 <div class="spinner" id="ui-category">
-<!--                    <div class="spinner-title">Client</div>-->
                     <div class="spinner-value">{{ hack.client }}</div>
                 </div>
                 <div class="spinner" id="api-category">
-<!--                    <div class="spinner-title">API</div>-->
                     <div class="spinner-value">{{ hack.api }}</div>
                 </div>
                 <div class="spinner" id="persistence-category">
-<!--                    <div class="spinner-title">Persistence</div>-->
                     <div class="spinner-value">{{ hack.persistence }}</div>
                 </div>
             </div>
-<!--            <button onclick="spinit()" class="spin-button">SPIN</button>-->
-            <button data-anijs="if: click, do: hinge animated, to: .spinner-value " class="spin-button">SPIN</button>
+            <button data-anijs="if: click, do: hinge animated, to: .spinner-value" class="spin-button">NEXT</button>
         </div>
         <div>Project: {{ hack.project.name }}</div>
         <div>Description: {{ hack.project.description }}</div>
