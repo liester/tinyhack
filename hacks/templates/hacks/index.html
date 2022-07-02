@@ -166,8 +166,22 @@
     }
 
     const getRandomProject = (projectSize) => {
-        return fetch(`https://httpbin.org/anything?project-size=${projectSize}`, {
-
+      console.log('stuffs')
+        new Promise((resolve, reject) => {
+          setTimeout(()=> {
+            resolve({
+              client: 'Vue',
+              api: 'PHP',
+              persistence: 'SQL'
+            })
+          }, 2500)
+        }).then(hack => {
+          document.querySelector('#ui-category .spinner-value').textContent = hack.client;
+          document.querySelector('#api-category .spinner-value').textContent = hack.api;
+          document.querySelector('#persistence-category .spinner-value').textContent = hack.persistence;
+          document.querySelector('#ui-category .spinner-value').classList.remove('hinge')
+          document.querySelector('#api-category .spinner-value').classList.remove('hinge')
+          document.querySelector('#persistence-category .spinner-value').classList.remove('hinge')
         });
     }
 
@@ -197,7 +211,7 @@
                     <div class="spinner-value">{{ hack.persistence }}</div>
                 </div>
             </div>
-            <button data-anijs="if: click, do: hinge animated, to: .spinner-value" class="spin-button">NEXT</button>
+            <button data-anijs="if: click, do: hinge animated, to: .spinner-value" class="spin-button" onclick="getRandomProject()">NEXT</button>
         </div>
         <div>Project: {{ hack.project.name }}</div>
         <div>Description: {{ hack.project.description }}</div>
