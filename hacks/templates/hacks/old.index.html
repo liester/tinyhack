@@ -1,0 +1,12 @@
+{% if hack %}
+<ul>
+  <li>Hack: {{ hack.project.name }}</li>
+  <li>Description: {{ hack.project.description }}</li>
+  <li>Size: {{ hack.project.size }}</li>
+  <li>Client: {{ hack.client }}</li>
+  <li>Api: {{ hack.api }}</li>
+  <li>Persistence: {{ hack.persistence }}</li>
+</ul>
+{% else %}
+<p>No hacks!</p>
+{% endif %}
