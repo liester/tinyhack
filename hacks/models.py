@@ -47,10 +47,6 @@ class Hack(models.Model):
 
     @staticmethod
     def get_tiny_hack():
-        # if project_size:
-        #     project = Project.objects.filter(size=project_size)[0]
-        # else:
-        #     project = Project.objects.all()[0]
         project = random.choice(Project.objects.all())
         client = random.choice(Client.objects.all())
         api = random.choice(Api.objects.all())
