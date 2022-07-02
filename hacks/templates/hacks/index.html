@@ -1,12 +1,252 @@
-{% if hack %}
-<ul>
-  <li>Hack: {{ hack.project.name }}</li>
-  <li>Description: {{ hack.project.description }}</li>
-  <li>Size: {{ hack.project.size }}</li>
-  <li>Client: {{ hack.client }}</li>
-  <li>Api: {{ hack.api }}</li>
-  <li>Persistence: {{ hack.persistence }}</li>
-</ul>
-{% else %}
-<p>No hacks!</p>
-{% endif %}
+<html>
+
+<head>
+    <!-- <link href="index.css" rel="stylesheet">
+    <script src="index.js"></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&family=Orelega+One&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: rgb(87, 20, 100);
+            --secondary: rgb(255, 111, 181);
+            --tertiary: rgb(85, 216, 193);
+        }
+
+        html {
+            font-family: 'Nunito', sans-serif;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+
+        .header {
+            display: flex;
+            background-color: var(--primary);
+            height: 50px;
+            color: white;
+            font-size: 35px;
+            justify-content: center;
+        }
+
+        .main-content {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .footer {
+            padding: 0 10 0 10;
+            height: 30px;
+            display: flex;
+            background-color: var(--primary);
+            color: white;
+            align-items: center;
+        }
+
+        .slot-machine {
+            display: flex;
+            width: 50%;
+        }
+
+        .spinner {
+            text-align: left;
+            width: 100px;
+            overflow-y: hidden;
+        }
+
+        .spinner .spin {
+            transition-duration: .1s;
+            transform: translatey(110px)
+        }
+
+        .spinners {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: solid var(--secondary) 5px;
+            border-radius: 5px;
+            flex: 1;
+            height: 100px;
+            align-items: center;
+        }
+
+        .spinner-value-container {
+            height: 90%;
+            overflow-y: hidden;
+        }
+
+        .spin-button {
+            margin-left: 10px;
+            font-size: 40px;
+            border: solid var(--secondary) 5px;
+            font-family: 'Orelega One', cursive;
+            color: var(--tertiary);
+            border-radius: 5px;
+            box-shadow: 2px 2px 0 0;
+        }
+
+        .spin-button:active {
+            box-shadow: 0 0 0 0;
+        }
+
+        #result {
+            width: 600px;
+        }
+
+        select {
+            width: 150px;
+            font-size: 16px;
+            border: 3px solid var(--secondary);
+            height: 34px;
+            /* -webkit-appearance: none; */
+            /* -moz-appearance: none; */
+            /* appearance: none;
+            background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat #EEE; */
+        }
+
+        .project-size-container {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-size-container label {
+            padding-right: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<script>
+    const uiOptions = [
+        'vanilla js',
+        'react',
+        'vue',
+        'svelte',
+        'angular',
+        'jquery',
+        'gatsby'
+
+    ]
+
+    const apiOptions = [
+        'express',
+        'java',
+        'python',
+        'ruby on rails',
+        'django',
+        'C#'
+    ]
+
+    const persistenceOptions = [
+        'mongo',
+        'postgres',
+        'redis',
+        'file system',
+        'mysql',
+        's3'
+    ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    const getRandomProject = (projectSize) => {
+        return fetch(`https://httpbin.org/anything?project-size=${projectSize}`, {
+
+        });
+    }
+
+    const generateCategories = async () => {
+        const projectSize = document.getElementById('project-size').value;
+        const categories = await getRandomProject(projectSize)
+            .then(response => response.json());
+        // document.getElementById('result').textContent = JSON.stringify(categories);
+        // return Promise((resolve, reject) => {
+        // setTimeout(()=> {
+        // }, 3000)
+        // })
+        const persistence = getRandomInt(persistenceOptions.length)
+        const api = getRandomInt(apiOptions.length)
+        const ui = getRandomInt(uiOptions.length)
+
+        document.querySelector('#ui-category .spinner-value').textContent = uiOptions[ui];
+        document.querySelector('#api-category .spinner-value').textContent = apiOptions[api];
+        document.querySelector('#persistence-category .spinner-value').textContent = persistenceOptions[persistence];
+    }
+
+    const spinit = async () => {
+        const spinTimes = 5;
+        const spinPromise = () => new Promise((resolve, reject) => {
+            console.log('running spin promise')
+            document.querySelector('#ui-category .spinner-value').classList.add('spin')
+            setTimeout(() => {
+                document.querySelector('#ui-category .spinner-value').classList.remove('spin')
+                setTimeout(() => {
+                    resolve()
+                }, 20)
+            }, 200)
+        })
+        for (let i = 0; i < spinTimes; i++) {
+            console.log('running promise')
+            await spinPromise()
+        }
+    }
+</script>
+
+<body>
+    <div class="header"> Welcome to TinyHack</div>
+    <div class="main-content">
+        <div class="project-size-container">
+            <label for="project-size">Project Size: </label>
+            <select name="project-size" id="project-size">
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+            </select>
+        </div>
+        <div class="slot-machine">
+            <div class="spinners">
+                <div class="spinner" id="ui-category">
+                    <!-- <div class="spinner-title">Client</div>
+                    <div class="spinner-value">{{ hack.client }}</div> -->
+                    <div class="spinner-title">Client</div>
+                    <div class="spinner-value-container">
+                        <div class="spinner-value">Framework</div>
+                    </div>
+                </div>
+                <!-- <div class="spinner" id="api-category">
+                    <div class="spinner-title">API</div>
+                    <div class="spinner-value">{{ hack.api }}</div>
+                </div>
+                <div class="spinner" id="persistence-category">
+                    <div class="spinner-title">Persistence</div>
+                    <div class="spinner-value">{{ hack.persistence }}</div>
+                </div> -->
+            </div>
+            <button onclick="spinit()" class="spin-button">SPIN</button>
+            <!-- <button onclick="location.reload()" class="spin-button">SPIN</button> -->
+        </div>
+        <div>Project: {{ hack.project.name }}</div>
+        <div>Description: {{ hack.project.description }}</div>
+    </div>
+    </div>
+    <div class="footer">
+        <div>TinyProductions &#169; 2022</div>
+    </div>
+</body>
+
+</html>
