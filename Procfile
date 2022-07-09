@@ -1,1 +1,1 @@
-web: gunicorn tinyhack.wsgi
+web: gunicorn tinyhacks.wsgi
