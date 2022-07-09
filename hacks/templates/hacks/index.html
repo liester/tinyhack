@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&family=Orelega+One&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
     <!-- AniCollection.css library -->
     <link rel="stylesheet" href="https://anijs.github.io/lib/anicollection/anicollection.css">
     <style>
@@ -50,7 +50,7 @@
         }
 
         .footer {
-            padding: 0 10 0 10;
+            padding: 0px 10px 0px 10px;
             height: 30px;
             display: flex;
             background-color: var(--primary);
@@ -60,12 +60,13 @@
 
         .slot-machine {
             display: flex;
-            width: 50%;
+            width: 30%;
+            min-width: 800px;
         }
 
         .spinner {
             text-align: center;
-            width: 150px;
+            width: 200px;
             font-family: 'Orelega One', cursive;
             color: var(--tertiary);
         }
@@ -119,12 +120,13 @@
             padding-right: 10px;
             font-size: 20px;
         }
-        header{
-            height:45px;
-            width:100%;
+
+        header {
+            height: 45px;
+            width: 100%;
             background-color: #2D3E50;
-            color:white;
-            font-size:150%;
+            color: white;
+            font-size: 150%;
             margin-bottom: 10px;
         }
 
@@ -132,102 +134,68 @@
 </head>
 
 <script>
-    const uiOptions = [
-        'vanilla js',
-        'react',
-        'vue',
-        'svelte',
-        'angular',
-        'jquery',
-        'gatsby'
-
-    ]
-
-    const apiOptions = [
-        'express',
-        'java',
-        'python',
-        'ruby on rails',
-        'django',
-        'C#'
-    ]
-
-    const persistenceOptions = [
-        'mongo',
-        'postgres',
-        'redis',
-        'file system',
-        'mysql',
-        's3'
-    ]
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-
-    const getRandomProject = (projectSize) => {
-      console.log('stuffs')
-        new Promise((resolve, reject) => {
-          setTimeout(()=> {
-            resolve({
-              client: 'Vue',
-              api: 'PHP',
-              persistence: 'SQL'
-            })
+  const getRandomProject = () => {
+    const projectSize = document.getElementById('project-size').value
+    return fetch(`/api/hacks?project-size=${projectSize}`)
+        .then(response => response.json())
+        .then(hacks => {
+          const hack = hacks[0];
+          console.log(JSON.stringify(hack));
+          setTimeout(() => {
+            document.querySelector('#ui-category .spinner-value').textContent = hack.client;
+            document.querySelector('#api-category .spinner-value').textContent = hack.api;
+            document.querySelector('#persistence-category .spinner-value').textContent = hack.persistence;
+            document.querySelector('#ui-category .spinner-value').classList.remove('hinge')
+            document.querySelector('#api-category .spinner-value').classList.remove('hinge')
+            document.querySelector('#persistence-category .spinner-value').classList.remove('hinge')
           }, 2500)
-        }).then(hack => {
-          document.querySelector('#ui-category .spinner-value').textContent = hack.client;
-          document.querySelector('#api-category .spinner-value').textContent = hack.api;
-          document.querySelector('#persistence-category .spinner-value').textContent = hack.persistence;
-          document.querySelector('#ui-category .spinner-value').classList.remove('hinge')
-          document.querySelector('#api-category .spinner-value').classList.remove('hinge')
-          document.querySelector('#persistence-category .spinner-value').classList.remove('hinge')
-        });
-    }
-
+        })
+  }
 </script>
 
 <body>
-    <div class="header"> Welcome to TinyHack</div>
-    <div class="main-content">
-        {% if hack %}
-        <div class="project-size-container">
-            <label for="project-size">Project Size: </label>
-            <select name="project-size" id="project-size">
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-            </select>
-        </div>
-        <div class="slot-machine">
-            <div class="spinners">
-                <div class="spinner" id="ui-category">
-                    <div class="spinner-value">{{ hack.client }}</div>
-                </div>
-                <div class="spinner" id="api-category">
-                    <div class="spinner-value">{{ hack.api }}</div>
-                </div>
-                <div class="spinner" id="persistence-category">
-                    <div class="spinner-value">{{ hack.persistence }}</div>
-                </div>
+<div class="header"> Welcome to TinyHack</div>
+<div class="main-content">
+    {% if hack %}
+    <div class="project-size-container">
+        <label for="project-size">Project Size: </label>
+        <select name="project-size" id="project-size">
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+        </select>
+    </div>
+    <div class="slot-machine">
+        <div class="spinners">
+            <div class="spinner" id="ui-category">
+                <div class="spinner-value">{{ hack.client }}</div>
             </div>
-            <button data-anijs="if: click, do: hinge animated, to: .spinner-value" class="spin-button" onclick="getRandomProject()">NEXT</button>
+            <div class="spinner" id="api-category">
+                <div class="spinner-value">{{ hack.api }}</div>
+            </div>
+            <div class="spinner" id="persistence-category">
+                <div class="spinner-value">{{ hack.persistence }}</div>
+            </div>
         </div>
-        <div>Project: {{ hack.project.name }}</div>
-        <div>Description: {{ hack.project.description }}</div>
-        {% else %}
-        <p>No hacks!</p>
-        {% endif %}
+        <button data-anijs="if: click, do: hinge animated, to: .spinner-value" class="spin-button"
+                onclick="getRandomProject()">NEXT
+        </button>
     </div>
-    </div>
-    <div class="footer">
-        <div>TinyProductions &#169; 2022</div>
-    </div>
-    <!-- AniJS core library -->
-    <script src="https://anijs.github.io/lib/anijs/anijs-min.js"></script>
+    <div>Project: {{ hack.project.name }}</div>
+    <div>Description: {{ hack.project.description }}</div>
+    {% else %}
+    <p>No hacks!</p>
+    {% endif %}
+</div>
+</div>
+<div class="footer">
+    <div>TinyProductions &#169; 2022</div>
+</div>
+<!-- AniJS core library -->
+<script src="https://anijs.github.io/lib/anijs/anijs-min.js"></script>
 
-    <!-- Include to use $addClass, $toggleClass or $removeClass -->
-    <script src="https://anijs.github.io/lib/anijs/helpers/dom/anijs-helper-dom-min.js"></script>
+<!-- Include to use $addClass, $toggleClass or $removeClass -->
+<script src="https://anijs.github.io/lib/anijs/helpers/dom/anijs-helper-dom-min.js"></script>
 </body>
 
 </html>
